@@ -1,0 +1,13 @@
+.env
+.env.*
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+*.faiss
+*.pkl
+main_backup.py
+main_before_retrieval_change.py
+test_questions_backup.py
+test_questions_backup2.py
