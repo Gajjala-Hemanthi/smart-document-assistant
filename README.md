@@ -1,4 +1,4 @@
-\# Smart Document Assistant
+Smart Document Assistant
 
 
 
