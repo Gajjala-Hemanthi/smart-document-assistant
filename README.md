@@ -1,152 +1,134 @@
-Smart Document Assistant
+# Smart Document Assistant
 
+A document question-answering application built with Retrieval-Augmented Generation (RAG). Upload documents, ask questions in natural language, and receive answers based on retrieved document evidence.
 
+## Features
 
-A RAG-based application that answers questions using information retrieved from uploaded documents.
+- 📄 **Document Upload and Processing**: Supports document formats implemented in the application, including PDF, TXT, and spreadsheets.
+- 🔍 **Text Retrieval**: Finds relevant document passages for a user's question.
+- 🧠 **Vector Embeddings**: Uses Ollama's `nomic-embed-text` model to represent text as embeddings.
+- 💾 **FAISS Vector Search**: Searches for semantically relevant document chunks.
+- 🤖 **Local RAG Question Answering**: Uses the local `llama3.2:1b` model through Ollama to generate answers from retrieved context.
+- 🎨 **Streamlit Interface**: Interact with the application through a web UI.
+- 📚 **Source Evidence**: Inspect retrieved evidence used to answer questions.
+- 📊 **Spreadsheet Support**: Includes spreadsheet-oriented handling implemented in the application.
 
+## Technology Stack
 
+- Python
+- Streamlit
+- LangChain
+- FAISS
+- Ollama
+- `nomic-embed-text` — embedding model
+- `llama3.2:1b` — local language model
 
-\## Features
+## Prerequisites
 
+- Python installed
+- [Ollama](https://ollama.com/) installed and running
+- Git (to clone the repository)
+- Enough local resources to run the selected Ollama models
 
+## Installation
 
-\- Upload and process supported documents.
+1. Clone the repository:
 
-\- Ask questions in natural language.
+   ```bash
+   git clone https://github.com/Gajjala-Hemanthi/smart-document-assistant.git
+   cd smart-document-assistant
+   ```
 
-\- Retrieve relevant document passages using FAISS.
+2. (Recommended) Create and activate a virtual environment:
 
-\- Generate answers using a local LLM through Ollama.
+   ```bash
+   # Windows
+   python -m venv .venv
+   .venv\Scripts\activate
 
-\- Display source evidence to help users verify answers.
+   # macOS/Linux
+   python -m venv .venv
+   source .venv/bin/activate
+   ```
 
+3. Install the Python dependencies:
 
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-\## Tech Stack
+4. Download the Ollama models used by the project:
 
+   ```bash
+   ollama pull nomic-embed-text
+   ollama pull llama3.2:1b
+   ```
 
+5. Start the application:
 
-\- \*\*Python\*\* — application logic
+   ```bash
+   streamlit run main.py
+   ```
 
-\- \*\*Streamlit\*\* — user interface
+6. Open the local URL printed in the terminal by Streamlit.
 
-\- \*\*LangChain\*\* — document processing and integrations
+## Usage
 
-\- \*\*FAISS\*\* — vector similarity search
+1. Start the application.
+2. Upload a supported document through the interface.
+3. Enter a question about the document.
+4. Review the generated answer and its retrieved source evidence.
 
-\- \*\*Ollama\*\* — local language model and embeddings
+Answer quality depends on the information present in the uploaded documents and the relevance of the retrieved passages.
 
+## Architecture
 
+The application follows a Retrieval-Augmented Generation workflow:
 
-\## How RAG Works
+1. **Document Processing** — extract text from uploaded documents.
+2. **Chunking** — divide extracted text into smaller passages.
+3. **Embedding Generation** — convert passages into vector representations using `nomic-embed-text`.
+4. **Vector Search** — use FAISS to retrieve passages relevant to the user's question.
+5. **Context Assembly** — provide retrieved passages as context for answer generation.
+6. **Answer Generation** — use `llama3.2:1b` through Ollama to generate a response grounded in the retrieved context.
+7. **Evidence Display** — show source evidence in the interface so users can inspect the supporting text.
 
-
-
-1\. Extract text from documents.
-
-2\. Split text into smaller chunks.
-
-3\. Convert chunks into embeddings.
-
-4\. Store and search embeddings using FAISS.
-
-5\. Retrieve relevant chunks for a user's question.
-
-6\. Send the retrieved context to the LLM to generate an answer.
-
-
-
-\## Project Structure
-
-
+## Project Structure
 
 ```text
-
-smart\_document\_assistant/
-
+smart-document-assistant/
 ├── main.py
-
 ├── retrieval.py
-
 ├── requirements.txt
-
-├── test\_questions.py
-
+├── test_questions.py
 ├── README.md
-
 └── .gitignore
-
 ```
 
+## Testing
 
-
-\## Setup and Run
-
-
-
-1\. Install Python and \[Ollama](https://ollama.com/).
-
-2\. Download the required Ollama models:
-
-
-
-&#x20;  ```bash
-
-&#x20;  ollama pull nomic-embed-text
-
-&#x20;  ollama pull llama3.2:1b
-
-&#x20;  ```
-
-
-
-3\. Install the Python dependencies:
-
-
-
-&#x20;  ```bash
-
-&#x20;  pip install -r requirements.txt
-
-&#x20;  ```
-
-
-
-4\. Start the application:
-
-
-
-&#x20;  ```bash
-
-&#x20;  streamlit run main.py
-
-&#x20;  ```
-
-
-
-5\. Open the local URL shown in your terminal and upload a document to begin asking questions.
-
-
-
-\## Testing
-
-
-
-Run the project's test script, if its required test inputs and configuration are available:
-
-
+The repository includes `test_questions.py` for project-specific question tests. Run it with:
 
 ```bash
-
-python test\_questions.py
-
+python test_questions.py
 ```
 
+Make sure any test documents or configuration expected by the test script are available before running it.
 
+## Security Notes
 
-\## Purpose
+- Do not commit `.env` files, API keys, passwords, or other secrets.
+- Review `.gitignore` before pushing changes to GitHub.
+- Uploaded documents may contain private information; only use documents you are authorized to process.
 
+## Future Improvements
 
+- Add automated tests for retrieval quality and answer grounding.
+- Improve handling of conflicting information across documents.
+- Add clearer setup and troubleshooting guidance for different environments.
 
-This project demonstrates how Retrieval-Augmented Generation (RAG) can connect document retrieval with a local language model to answer questions using document evidence.
+## Acknowledgments
+
+This project uses open-source tools and libraries including Streamlit, LangChain, FAISS, and Ollama.
+
 
